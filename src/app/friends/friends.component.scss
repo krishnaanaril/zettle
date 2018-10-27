@@ -1,0 +1,28 @@
+.add-user {
+    background-color: white;
+    color: black;
+    position: fixed;
+    width: 64px;
+    height: 64px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    border: solid black;
+    cursor: pointer;
+}
+
+.add-user:hover {
+    background-color: gainsboro;
+}
+
+.add-user > img {
+    width: 96px;
+    height: 96px;
+    margin-left: -26px;
+    margin-top: -18px;
+}
+
+.friends-main-wrapper {
+    width: 100vw;
+    height: 100%;    
+}

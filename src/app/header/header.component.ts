@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
   private displayHome: boolean;
   private displayFriends: boolean;
   private displayGroups: boolean;
+  private displayAnalytics: boolean;
 
   @Input()
   set home(value: boolean) {
@@ -31,6 +32,12 @@ export class HeaderComponent implements OnInit {
   }
   get groups() {
     return this.displayGroups || false;
+  }
+  set analytics(value: boolean) {
+    this.displayAnalytics = value || false;
+  }
+  get analytics() {
+    return this.displayAnalytics || false;
   }
 
   constructor() { }

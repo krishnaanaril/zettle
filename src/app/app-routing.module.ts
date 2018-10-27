@@ -5,9 +5,11 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { FriendsComponent } from './friends/friends.component';
 import { GroupsComponent } from './groups/groups.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
   { path: 'friends', component: FriendsComponent },
+  { path: 'add-user', component: AddUserComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
