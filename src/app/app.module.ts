@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { FriendsComponent } from './friends/friends.component';
 import { GroupsComponent } from './groups/groups.component';
+import { HeaderComponent } from './header/header.component';
 // import { MaterialModule } from './material/material.module'; // Commented for now as we are proceeding with bootstrap at the moment
 
 @NgModule({
@@ -16,7 +17,8 @@ import { GroupsComponent } from './groups/groups.component';
     HomeComponent,
     LoginComponent,
     FriendsComponent,
-    GroupsComponent
+    GroupsComponent,
+    HeaderComponent
   ],
   imports: [
     AppRoutingModule,
