@@ -16,7 +16,9 @@ import { NoSpaceDirective } from './shared/directive/no-space.directive';
 import { MaterialModule } from './material/material.module';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { AddGroupComponent } from './add-group/add-group.component'; // Commented for now as we are proceeding with bootstrap at the moment
+import { AddGroupComponent } from './add-group/add-group.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'; // Commented for now as we are proceeding with bootstrap at the moment
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { AddGroupComponent } from './add-group/add-group.component'; // Commente
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
