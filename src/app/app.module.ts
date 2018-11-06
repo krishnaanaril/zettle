@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Mine
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { FriendsComponent } from './friends/friends.component';
 import { GroupsComponent } from './groups/groups.component';
@@ -13,7 +13,9 @@ import { HeaderComponent } from './header/header.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { NoSpaceDirective } from './shared/directive/no-space.directive';
-// import { MaterialModule } from './material/material.module'; // Commented for now as we are proceeding with bootstrap at the moment
+import { MaterialModule } from './material/material.module';
+import { SignupFormComponent } from './signup-form/signup-form.component';
+import { LoginFormComponent } from './login-form/login-form.component'; // Commented for now as we are proceeding with bootstrap at the moment
 
 @NgModule({
   declarations: [
@@ -25,14 +27,16 @@ import { NoSpaceDirective } from './shared/directive/no-space.directive';
     HeaderComponent,
     AddUserComponent,
     SearchUserComponent,
-    NoSpaceDirective
+    NoSpaceDirective,
+    SignupFormComponent,
+    LoginFormComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    FormsModule
-    // MaterialModule
+    FormsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

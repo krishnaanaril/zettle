@@ -1,0 +1,20 @@
+  <div class="login-form-wrapper">
+    <form class="example-form" (ngSubmit)="onLoginClick()" #userForm="ngForm">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="UserId" name="userId" required [(ngModel)]="user._id" required #id="ngModel">
+        <mat-error *ngIf="id.valid">
+          Please enter a valid user id
+        </mat-error>
+
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input type="password" matInput placeholder="Password" name="password" required [(ngModel)]="user.password" required #password="ngModel">
+        <mat-error *ngIf="password.valid">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <div class="button-section">
+        <button type="submit" [disabled]="!userForm.form.valid" mat-raised-button color="primary">Log In</button>
+      </div>
+    </form>
+  </div>

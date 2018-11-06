@@ -26,7 +26,7 @@
         </div>
         <div class="zettle-btn-group">
           <button type="submit" class="btn btn-dark" [disabled]="!userForm.form.valid">Submit</button>
-          <button type="button" class="btn btn-yellow">Cancel</button>
+          <button type="button" (click)="cancelClick()" class="btn btn-yellow">Cancel</button>
         </div>
       </div>
     </form>

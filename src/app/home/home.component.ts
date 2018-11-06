@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 // Mine
-import { PouchService } from '../shared/services/pouch.service';
+
 
 @Component({
   selector: 'app-home',
@@ -9,12 +9,12 @@ import { PouchService } from '../shared/services/pouch.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  
 
-  constructor(private pouchService: PouchService) { }
+
+  constructor() { }
 
   ngOnInit() {
-    this.pouchService.logDBInfo();
+    // this.pouchService.logDBInfo();
   }
-  
+
 }

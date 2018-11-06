@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 // Mine
 import { User } from '../shared/models/user';
-import { PouchService } from '../shared/services/pouch.service';
+import { LocalforageService } from '../shared/services/localforage.service';
+
 
 @Component({
   selector: 'app-add-user',
@@ -13,13 +15,14 @@ export class AddUserComponent implements OnInit {
   fileInputPlaceHolder: string;
   user: User;
 
-  constructor(private pouchService: PouchService) { }
+  constructor(private location: Location
+    ,private localforage: LocalforageService) { }
 
   ngOnInit() {
     this.fileInputPlaceHolder = 'Choose an image';
     this.user = new User();
     console.log(this.user);
-    this.pouchService.syncWithRemote();
+    // this.pouchService.syncWithRemote();
   }
 
   fileChanged(e) {
@@ -28,9 +31,13 @@ export class AddUserComponent implements OnInit {
     }
   }
 
+  cancelClick() {
+    this.location.back();
+  }
+
   onSubmit() {
     console.log('form submitted.');
     console.log(this.user);
-    this.pouchService.addUser(this.user);
+    this.localforage.addUser(this.user);
   }
 }

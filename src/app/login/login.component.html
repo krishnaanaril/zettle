@@ -1,6 +1,24 @@
 <div class="login-main-wrapper">
   <app-header class="appHeader"></app-header>
   <div class="login-wrapper">
+    <div class="login-rightpane">
+      <div class="login-rightpane-buttons">
+        <div>
+          <span class="caps">W</span><span>elcome to Zettle.</span>
+        </div>
+        <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+          <mat-tab label="Log In">
+            <app-login-form></app-login-form>
+          </mat-tab>
+          <mat-tab label="Sign Up">
+            <app-signup-form></app-signup-form>
+          </mat-tab>
+        </mat-tab-group>
+        <!-- <button type="button" [routerLink]="['/home']" class="btn btn-login">Facebook</button>
+        <button type="button" class="btn btn-login">Google</button>
+        <button type="button" (mouseenter)="mouseEnter()" [@hover]="isHover? 'enter' : 'leave'" (mouseleave)="mouseLeave()" class="btn btn-login">Twitter</button> -->
+      </div>
+    </div>
     <div class="login-leftpane">
       <div class="login-leftpane-info">
         <ul>
@@ -8,16 +26,6 @@
           <li>Keep track of your expenses.</li>
           <li>Generate reports and plan with our analytics.</li>
         </ul>
-      </div>
-    </div>
-    <div class="login-rightpane">
-      <div class="login-rightpane-buttons">
-        <div>
-          <span class="caps">W</span><span>elcome to Zettle.</span>
-        </div>
-        <button type="button" class="btn btn-login">Facebook</button>
-        <button type="button" class="btn btn-login">Google</button>
-        <button type="button" class="btn btn-login">Twitter</button>
       </div>
     </div>
   </div>

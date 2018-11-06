@@ -16,8 +16,8 @@ $montserrat: 'Montserrat';
 
 .login-wrapper {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
     width: 100vw;
     height: 100%;
 }
@@ -36,6 +36,7 @@ $montserrat: 'Montserrat';
 
     @media (max-width: 750px) {
         width: 100%;
+        height: 100vh;
     }
 }
 
@@ -67,6 +68,9 @@ $montserrat: 'Montserrat';
     flex-direction: column;
     justify-content: space-between;    
     font-family: $montserrat;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .btn-login {
@@ -87,3 +91,8 @@ $montserrat: 'Montserrat';
     font-size: 2.5em;
     font-style: bold;
 }
+
+.example-stretched-tabs {
+    max-width: 600px;
+    height: 50vh;
+  }
