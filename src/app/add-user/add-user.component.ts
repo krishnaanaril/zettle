@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material';
 // Mine
 import { User } from '../shared/models/user';
 import { LocalforageService } from '../shared/services/localforage.service';
@@ -16,7 +17,8 @@ export class AddUserComponent implements OnInit {
   user: User;
 
   constructor(private location: Location
-    ,private localforage: LocalforageService) { }
+    , private localforage: LocalforageService
+    , public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.fileInputPlaceHolder = 'Choose an image';
@@ -38,6 +40,22 @@ export class AddUserComponent implements OnInit {
   onSubmit() {
     console.log('form submitted.');
     console.log(this.user);
-    this.localforage.addUser(this.user);
+    this.localforage.addUser(this.user).subscribe((res) => {
+      const snackBarRef = this.snackBar.open('User added.', 'UNDO', {
+        duration: 2000,
+      });
+      snackBarRef.onAction().subscribe(() => {
+        this.localforage.removeUser(this.user._id).subscribe((result) => {
+          this.snackBar.open(`${this.user.userName} removed.`, '', {
+            duration: 2000,
+          });
+        }, (err) => {
+          console.error(err);
+        });
+      });
+    },
+      (err) => {
+        console.error(err);
+      });
   }
 }

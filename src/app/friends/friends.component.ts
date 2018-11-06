@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 // Mine
-
-
+import { LocalforageService } from '../shared/services/localforage.service';
+import { User } from '../shared/models/user';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
@@ -11,16 +11,17 @@ import { Observable } from 'rxjs';
 })
 export class FriendsComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  friends: User[];
+
+  constructor(private router: Router
+    , private localforage: LocalforageService) { }
 
   ngOnInit() {
-    // this.pouchService.getUsers().subscribe((result) => {
-    //   result.rows.forEach(element => {
-    //     console.log(element.doc.email);
-    //   });
-    // }, (error) => {
-    //   console.error(error);
-    // });
+    this.localforage.getAllFriends().subscribe((res) => {
+      this.friends = res;
+    }, (err) => {
+      console.error(err);
+    });
   }
 
   addUserClick() {

@@ -15,7 +15,8 @@ import { SearchUserComponent } from './search-user/search-user.component';
 import { NoSpaceDirective } from './shared/directive/no-space.directive';
 import { MaterialModule } from './material/material.module';
 import { SignupFormComponent } from './signup-form/signup-form.component';
-import { LoginFormComponent } from './login-form/login-form.component'; // Commented for now as we are proceeding with bootstrap at the moment
+import { LoginFormComponent } from './login-form/login-form.component';
+import { AddGroupComponent } from './add-group/add-group.component'; // Commented for now as we are proceeding with bootstrap at the moment
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoginFormComponent } from './login-form/login-form.component'; // Comme
     SearchUserComponent,
     NoSpaceDirective,
     SignupFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    AddGroupComponent
   ],
   imports: [
     AppRoutingModule,

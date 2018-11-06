@@ -3,31 +3,40 @@
   <div class="form-wrapper">
     <form (ngSubmit)="onSubmit()" #userForm="ngForm">
       <div class="add-user-form">
-          <input type="text" class="form-control input-blocks" id="userId" name="userId" required [(ngModel)]="user._id" placeholder="@userid"
-          aria-label="Username" aria-describedby="basic-addon1" #id="ngModel" appNoSpace>
-        <div [hidden]="id.valid || id.pristine" class="alert alert-danger">
+      <mat-form-field class="example-full-width">
+        <input matInput aria-label="UserId" placeholder="UserId" name="userId" required [(ngModel)]="user._id" required appNoSpace
+          #id="ngModel">
+        <mat-error *ngIf="id.valid || id.pristine">
           Id is required and without spaces.
-        </div>
-        <input type="text" class="form-control input-blocks" id="userName" name="userName" required [(ngModel)]="user.userName" placeholder="Username"
-          aria-label="Username" aria-describedby="basic-addon1" #name="ngModel">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput aria-label="Username" placeholder="Username" name="userName" required [(ngModel)]="user.userName" required
+          #name="ngModel">
+        <mat-error *ngIf="name.valid || name.pristine">
           Name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input type="email" matInput placeholder="Email" name="email" required [(ngModel)]="user.email" required email #email="ngModel">
+        <mat-error *ngIf="email.valid">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput type="tel" aria-label="Phone" placeholder="Phone" name="phone" [(ngModel)]="user.primaryPhone" #name="ngModel">
+      </mat-form-field>
+
+      <div class="input-group mb-3 input-blocks zettle-label">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input zettle-button" accept="image/*" (change)="fileChanged($event)" id="inputGroupFile02">          -->
+          <label class="custom-file-label" for="inputGroupFile02">{{fileInputPlaceHolder}}</label>
         </div>
-        <input type="email" [(ngModel)]="user.email" name="email" id="email" class="form-control input-blocks" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" #email="ngModel">
-        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-            Email is required
-          </div>
-        <input type="tel" [(ngModel)]="user.primaryPhone" class="form-control input-blocks" placeholder="Phone" aria-label="Phone" name="phone" id="phone" aria-describedby="basic-addon1">
-        <div class="input-group mb-3 input-blocks">
-          <div class="custom-file">
-            <input type="file" class="custom-file-input zettle-button" accept="image/*" (change)="fileChanged($event)" id="inputGroupFile02">
-            <label class="custom-file-label" for="inputGroupFile02">{{fileInputPlaceHolder}}</label>
-          </div>        
-        </div>
-        <div class="zettle-btn-group">
-          <button type="submit" class="btn btn-dark" [disabled]="!userForm.form.valid">Submit</button>
-          <button type="button" (click)="cancelClick()" class="btn btn-yellow">Cancel</button>
-        </div>
+      </div>
+      <div class="zettle-btn-group">
+        <button type="submit" class="btn btn-dark" [disabled]="!userForm.form.valid">Submit</button>
+        <button type="button" (click)="cancelClick()" class="btn btn-yellow">Cancel</button>
+      </div>
       </div>
     </form>
   </div>
