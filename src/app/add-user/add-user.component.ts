@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
+import { MatBottomSheetRef } from '@angular/material';
 // Mine
 import { User } from '../shared/models/user';
 import { LocalforageService } from '../shared/services/localforage.service';
@@ -18,13 +19,13 @@ export class AddUserComponent implements OnInit {
 
   constructor(private location: Location
     , private localforage: LocalforageService
-    , public snackBar: MatSnackBar) { }
+    , public snackBar: MatSnackBar
+    , private bottomSheetRef: MatBottomSheetRef<AddUserComponent>) { }
 
   ngOnInit() {
     this.fileInputPlaceHolder = 'Choose an image';
     this.user = new User();
     console.log(this.user);
-    // this.pouchService.syncWithRemote();
   }
 
   fileChanged(e) {
@@ -33,21 +34,24 @@ export class AddUserComponent implements OnInit {
     }
   }
 
-  cancelClick() {
-    this.location.back();
+  cancelClick(event: MouseEvent) {
+    this.bottomSheetRef.dismiss();
+    event.preventDefault();
   }
 
-  onSubmit() {
+  onSubmit(event: MouseEvent) {
     console.log('form submitted.');
     console.log(this.user);
     this.localforage.addUser(this.user).subscribe((res) => {
       const snackBarRef = this.snackBar.open('User added.', 'UNDO', {
         duration: 2000,
+        panelClass: ['snack-bar']
       });
       snackBarRef.onAction().subscribe(() => {
-        this.localforage.removeUser(this.user._id).subscribe((result) => {
+        this.localforage.removeUser(this.user.id).subscribe((result) => {
           this.snackBar.open(`${this.user.userName} removed.`, '', {
             duration: 2000,
+            panelClass: ['snack-bar']
           });
         }, (err) => {
           console.error(err);
@@ -56,6 +60,10 @@ export class AddUserComponent implements OnInit {
     },
       (err) => {
         console.error(err);
+      },
+      () => {
+        this.bottomSheetRef.dismiss();
+        event.preventDefault();
       });
   }
 }

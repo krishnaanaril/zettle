@@ -1,5 +1,5 @@
 .add-user-form {
-    max-width: 500px;    
+    max-width: 500px;
 }
 
 .form-wrapper {
@@ -14,7 +14,7 @@
 .zettle-button {
     background-color: black;
     color: white;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 .zettle-label {
@@ -41,5 +41,11 @@
     width: 100%;
     max-width: 500px;
     padding-left: 10px;
-    padding-right: 10px;    
-  }
+    padding-right: 10px;
+}
+
+.snack-bar {
+    max-width: 90vw !important;
+    color: white;
+    width: 100%;
+}

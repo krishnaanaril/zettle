@@ -17,4 +17,8 @@ export class HomeComponent implements OnInit {
     // this.pouchService.logDBInfo();
   }
 
+  addBillClick() {
+
+  }
+
 }

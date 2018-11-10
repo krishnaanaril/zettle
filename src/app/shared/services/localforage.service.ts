@@ -14,6 +14,10 @@ export class LocalforageService {
   friendsStore: any;
   groupsStore: any;
   billsStore: any;
+  metaStore: any;
+
+  private _userCount: number;
+  private _groupCount: number;
 
   constructor() {
     this.friendsStore = localforage.createInstance({
@@ -31,10 +35,53 @@ export class LocalforageService {
       storeName: 'billsStore',
       version: 1.0
     });
+    this.metaStore = localforage.createInstance({
+      name: 'zettle',
+      storeName: 'metaStore',
+      version: 1.0
+    });
+  }
+
+  getStore(store: string): any {
+    switch (store) {
+      case 'friendStore':
+        return this.friendsStore;
+      case 'groupsStore':
+        return this.groupsStore;
+      case 'billsStore':
+        return this.billsStore;
+      case 'metaStore':
+        return this.metaStore;
+    }
+  }
+
+  addItem(store: string, key: string, value: any): Observable<boolean> {
+    return this.getStore(store).setItem(key, value).then(() => {
+      return of(true);
+    }).catch((err) => {
+      throw err;
+    });
+  }
+
+  getItem(store: string, key: string): Observable<any> {
+    return this.getStore(store).getItem(key).then((val) => {
+      return of(val);
+    }).catch((err) => {
+      throw err;
+    });
+  }
+
+  removeItem(store: string, key: string): Observable<boolean> {
+    return this.getStore(store).removeItem(key).then(() => {
+      console.log('key cleared');
+      return of(true);
+    }).catch((err) => {
+      throw err;
+    });
   }
 
   addUser(user: User): Observable<boolean> {
-    return from(this.friendsStore.setItem(user._id, user).then(() => {
+    return from(this.friendsStore.setItem(user.id, user).then(() => {
       console.log(`${user.userName} added to local storage.`);
       return of(true);
     }).catch((err) => {

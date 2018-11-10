@@ -1,7 +1,7 @@
 <div class="login-form-wrapper">
     <form class="example-form" (ngSubmit)="onSignUpClick()" #userForm="ngForm">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="UserId" name="userId" required [(ngModel)]="user._id" required #id="ngModel">
+        <input matInput placeholder="UserId" name="userId" required [(ngModel)]="user.id" required #id="ngModel">
         <mat-error *ngIf="id.valid">
           Please enter a valid user id
         </mat-error>

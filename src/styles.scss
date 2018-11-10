@@ -47,3 +47,9 @@ $zettle-theme: mat-light-theme($zettle-primary, $zettle-accent, $zettle-warn);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: $montserrat }
+
+.snack-bar {
+    max-width: 90vw !important;
+    color: white;
+    width: 100%;
+}

@@ -15,13 +15,6 @@
     background-color: gainsboro;
 }
 
-.add-user > img {
-    width: 96px;
-    height: 96px;
-    margin-left: -26px;
-    margin-top: -18px;
-}
-
 .friends-main-wrapper {
     width: 100vw;
     height: 100%;    
@@ -33,4 +26,11 @@
 
 .listItem:hover {
     background-color: gainsboro;
+}
+
+.list-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
