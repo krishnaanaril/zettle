@@ -1,0 +1,79 @@
+{
+  "configVersion": 1,
+  "index": "https://krishnaanaril.github.io/zettle/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://krishnaanaril.github.io/zettle/favicon.ico",
+        "https://krishnaanaril.github.io/zettle/index.html",
+        "https://krishnaanaril.github.io/zettle/main.3bb8f4d407ad4a1280eb.js",
+        "https://krishnaanaril.github.io/zettle/polyfills.c6871e56cb80756a5498.js",
+        "https://krishnaanaril.github.io/zettle/runtime.00c82fdebd384e867a25.js",
+        "https://krishnaanaril.github.io/zettle/scripts.ee7fed27c36eaa5fa8a9.js",
+        "https://krishnaanaril.github.io/zettle/styles.f7c2959cc85c7cbd51f5.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://krishnaanaril.github.io/zettle/assets/fonts/Montserrat-Regular.woff",
+        "https://krishnaanaril.github.io/zettle/assets/fonts/Montserrat-Regular.woff2",
+        "https://krishnaanaril.github.io/zettle/assets/icons/icon-128x128.png",
+        "https://krishnaanaril.github.io/zettle/assets/icons/icon-144x144.png",
+        "https://krishnaanaril.github.io/zettle/assets/icons/icon-152x152.png",
+        "https://krishnaanaril.github.io/zettle/assets/icons/icon-192x192.png",
+        "https://krishnaanaril.github.io/zettle/assets/icons/icon-384x384.png",
+        "https://krishnaanaril.github.io/zettle/assets/icons/icon-512x512.png",
+        "https://krishnaanaril.github.io/zettle/assets/icons/icon-72x72.png",
+        "https://krishnaanaril.github.io/zettle/assets/icons/icon-96x96.png",
+        "https://krishnaanaril.github.io/zettle/assets/images/logo/logo-svg.svg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://krishnaanaril.github.io/zettle/assets/fonts/Montserrat-Regular.woff": "35f01873fc057b24017a8e53e713c73d94a5f4f3",
+    "https://krishnaanaril.github.io/zettle/assets/fonts/Montserrat-Regular.woff2": "c841ce9cf891a73112de2f119e8dbdd817469d58",
+    "https://krishnaanaril.github.io/zettle/assets/icons/icon-128x128.png": "27f95d43b03ee06269f06fe8f17af4ca0f266344",
+    "https://krishnaanaril.github.io/zettle/assets/icons/icon-144x144.png": "3fdc9d317d7f1e849f07391a2717bd2ddf67b2bd",
+    "https://krishnaanaril.github.io/zettle/assets/icons/icon-152x152.png": "26e4f989188d024ff2adc408583155606479004b",
+    "https://krishnaanaril.github.io/zettle/assets/icons/icon-192x192.png": "75df0a3ef7c30dcda447c1b57a44a95814efe2b9",
+    "https://krishnaanaril.github.io/zettle/assets/icons/icon-384x384.png": "5a71a6dd90e36edc29287e27874a5012d3acb4f8",
+    "https://krishnaanaril.github.io/zettle/assets/icons/icon-512x512.png": "de7722608ccbdbff1baab9f87caee3c688603004",
+    "https://krishnaanaril.github.io/zettle/assets/icons/icon-72x72.png": "3a7069676cf865312b65d5a634bd28757b7d398f",
+    "https://krishnaanaril.github.io/zettle/assets/icons/icon-96x96.png": "d21bce1bef784a1cf0fa185c08e0139040a7d278",
+    "https://krishnaanaril.github.io/zettle/assets/images/logo/logo-svg.svg": "ec829600ea74e00be26d6c9f577b12d7136d7695",
+    "https://krishnaanaril.github.io/zettle/favicon.ico": "577cb7fc0f53e3b3836e959a876ad3c23a8ca2ea",
+    "https://krishnaanaril.github.io/zettle/index.html": "d187808d218d44123a408a2d3bcd3bcf57ca2d59",
+    "https://krishnaanaril.github.io/zettle/main.3bb8f4d407ad4a1280eb.js": "82b3e718f9a9bc2e1b5c8c74e2ecd9e486187dbc",
+    "https://krishnaanaril.github.io/zettle/polyfills.c6871e56cb80756a5498.js": "ce68d153e9b9b6d26b625069c0ee99ae09c6f255",
+    "https://krishnaanaril.github.io/zettle/runtime.00c82fdebd384e867a25.js": "5204bc2b9032bc7a0650566082a440bb3db32762",
+    "https://krishnaanaril.github.io/zettle/scripts.ee7fed27c36eaa5fa8a9.js": "f6f283629e7606428f6239a4b89bd4b42cc2f0ab",
+    "https://krishnaanaril.github.io/zettle/styles.f7c2959cc85c7cbd51f5.css": "957ca5e5d43bde8b3802be081c90ca9b46aac2ab"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

@@ -421,6 +421,9 @@ MIT
 
 @angular/material/snack-bar
 
+@angular/service-worker
+MIT
+
 zone.js
 MIT
 The MIT License
