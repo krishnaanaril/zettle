@@ -9,6 +9,7 @@ export class User {
     public share: number;
     public lent: number;
     public owe: number;
+    public displayImage: string;
 
     constructor() {
         this.id = '';
@@ -19,5 +20,6 @@ export class User {
         this.primaryPhone = '';
         this.password = '';
         this.lent = this.share = this.owe = 0;
+        this.displayImage = '';
     }
 }

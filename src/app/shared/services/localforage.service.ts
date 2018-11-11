@@ -89,6 +89,14 @@ export class LocalforageService {
     }));
   }
 
+  getUser(userId: string): Observable<User> {
+    return from(this.friendsStore.getItem(userId).then((res) => {
+      return of(res);
+    }).catch((err) => {
+      throw err;
+    }));
+  }
+
   removeUser(userId: string): Observable<boolean> {
     return from(this.friendsStore.removeItem(userId).then(() => {
       return of(true);

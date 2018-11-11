@@ -15,12 +15,18 @@ import { User } from '../shared/models/user';
 export class FriendsComponent implements OnInit {
 
   friends: User[];
+  defaultDisplayImagePath: string;
 
   constructor(private router: Router
     , private localforage: LocalforageService
     , private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
+    this.reloadList();
+    this.defaultDisplayImagePath = 'assets/images/others/user.png';
+  }
+
+  reloadList() {
     this.localforage.getAllFriends().subscribe((res) => {
       this.friends = res;
     }, (err) => {
@@ -30,7 +36,15 @@ export class FriendsComponent implements OnInit {
 
   addUserClick() {
     // this.router.navigateByUrl('/add-user');
-    this.bottomSheet.open(AddUserComponent);
+    this.bottomSheet.open(AddUserComponent).afterDismissed().subscribe(() => {
+      this.reloadList();
+    });
+  }
+
+  userEditClick(userId: string) {
+    this.bottomSheet.open(AddUserComponent, { data: { userId: userId } }).afterDismissed().subscribe(() => {
+      this.reloadList();
+    });
   }
 
   userDeleteClick(userId: string) {

@@ -4,8 +4,13 @@
         <h3 mat-subheader>Friends</h3>
         <mat-list-item class="listItem" *ngFor="let friend of friends">
             <!-- <mat-icon mat-list-icon>delete</mat-icon> -->
+            <img matListAvatar *ngIf="friend.displayImage" [src]="friend.displayImage" alt="no image">
+            <img matListAvatar *ngIf="!friend.displayImage" src="assets/images/others/user.png" alt="no image">
             <h4 mat-line>{{friend.userName}}</h4>
             <p mat-line> @{{friend.id}} </p>
+            <button mat-icon-button (click)="userEditClick(friend.id)">
+                <mat-icon mat-list-icon aria-label="Example icon-button with a edit icon">edit</mat-icon>
+            </button>
             <button mat-icon-button (click)="userDeleteClick(friend.id)">
                 <mat-icon mat-list-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
             </button>

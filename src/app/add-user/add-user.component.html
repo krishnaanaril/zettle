@@ -1,7 +1,7 @@
 <div class="add-user-wrapper">
   <!-- <app-header></app-header> -->
   <div class="form-wrapper">
-    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <form (ngSubmit)="onSubmit($event)" #userForm="ngForm">
       <div class="add-user-form">
       <mat-form-field class="example-full-width">
         <input matInput aria-label="UserId" placeholder="UserId" name="userId" required [(ngModel)]="user.id" required appNoSpace
@@ -35,7 +35,7 @@
       </div>
       <div class="zettle-btn-group">
         <button type="submit" class="btn btn-dark" [disabled]="!userForm.form.valid">Submit</button>
-        <button type="button" (click)="cancelClick()" class="btn btn-yellow">Cancel</button>
+        <button type="button" (click)="cancelClick($event)" class="btn btn-yellow">Cancel</button>
       </div>
       </div>
     </form>
