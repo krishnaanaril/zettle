@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy": "npm run build-prod && npx ngh --dir=dist/zettle",
-    "checkin": "git push orign master"
+    "checkin": "git push origin master"
   },
   "private": true,
   "dependencies": {
