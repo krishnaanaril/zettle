@@ -407,6 +407,8 @@ MIT
 
 @angular/material/icon
 
+@angular/material/menu
+
 @angular/material/form-field
 
 @angular/material/tabs
@@ -420,6 +422,8 @@ MIT
 @angular/material/tooltip
 
 @angular/material/snack-bar
+
+@angular/material/select
 
 @angular/service-worker
 MIT

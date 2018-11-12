@@ -9,7 +9,7 @@
       "urls": [
         "https://krishnaanaril.github.io/zettle/favicon.ico",
         "https://krishnaanaril.github.io/zettle/index.html",
-        "https://krishnaanaril.github.io/zettle/main.dbc0be1474de446a9356.js",
+        "https://krishnaanaril.github.io/zettle/main.be590d4d8fb05f0a2ad7.js",
         "https://krishnaanaril.github.io/zettle/polyfills.c6871e56cb80756a5498.js",
         "https://krishnaanaril.github.io/zettle/runtime.00c82fdebd384e867a25.js",
         "https://krishnaanaril.github.io/zettle/scripts.ee7fed27c36eaa5fa8a9.js",
@@ -22,6 +22,7 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "urls": [
+        "https://krishnaanaril.github.io/zettle/assets/data/categories.json",
         "https://krishnaanaril.github.io/zettle/assets/fonts/Montserrat-Regular.woff",
         "https://krishnaanaril.github.io/zettle/assets/fonts/Montserrat-Regular.woff2",
         "https://krishnaanaril.github.io/zettle/assets/icons/icon-128x128.png",
@@ -33,6 +34,7 @@
         "https://krishnaanaril.github.io/zettle/assets/icons/icon-72x72.png",
         "https://krishnaanaril.github.io/zettle/assets/icons/icon-96x96.png",
         "https://krishnaanaril.github.io/zettle/assets/images/logo/logo-svg.svg",
+        "https://krishnaanaril.github.io/zettle/assets/images/others/bill.png",
         "https://krishnaanaril.github.io/zettle/assets/images/others/user.png"
       ],
       "patterns": []
@@ -40,6 +42,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
+    "https://krishnaanaril.github.io/zettle/assets/data/categories.json": "0ce3e7687906ef241714bb7ac72014244f6b7e11",
     "https://krishnaanaril.github.io/zettle/assets/fonts/Montserrat-Regular.woff": "35f01873fc057b24017a8e53e713c73d94a5f4f3",
     "https://krishnaanaril.github.io/zettle/assets/fonts/Montserrat-Regular.woff2": "c841ce9cf891a73112de2f119e8dbdd817469d58",
     "https://krishnaanaril.github.io/zettle/assets/icons/icon-128x128.png": "27f95d43b03ee06269f06fe8f17af4ca0f266344",
@@ -51,10 +54,11 @@
     "https://krishnaanaril.github.io/zettle/assets/icons/icon-72x72.png": "3a7069676cf865312b65d5a634bd28757b7d398f",
     "https://krishnaanaril.github.io/zettle/assets/icons/icon-96x96.png": "d21bce1bef784a1cf0fa185c08e0139040a7d278",
     "https://krishnaanaril.github.io/zettle/assets/images/logo/logo-svg.svg": "ec829600ea74e00be26d6c9f577b12d7136d7695",
+    "https://krishnaanaril.github.io/zettle/assets/images/others/bill.png": "3d9eaa4222b3d4480bf8b62672bd7114bcd1dd65",
     "https://krishnaanaril.github.io/zettle/assets/images/others/user.png": "b93c1c792f39ba70f367b8d999f6e604e732601f",
     "https://krishnaanaril.github.io/zettle/favicon.ico": "577cb7fc0f53e3b3836e959a876ad3c23a8ca2ea",
-    "https://krishnaanaril.github.io/zettle/index.html": "e8fb5119db01ec6518fed5aea31c9474dd923ce8",
-    "https://krishnaanaril.github.io/zettle/main.dbc0be1474de446a9356.js": "f35bd31c3a4efef8a058fc89ee1f15a60cfceb1a",
+    "https://krishnaanaril.github.io/zettle/index.html": "2e253f0fb0ee206b5f9c37199a92349e2de2c604",
+    "https://krishnaanaril.github.io/zettle/main.be590d4d8fb05f0a2ad7.js": "f8b5e5ace9872ac0436ca72bd03d5f6eb957b7d7",
     "https://krishnaanaril.github.io/zettle/polyfills.c6871e56cb80756a5498.js": "ce68d153e9b9b6d26b625069c0ee99ae09c6f255",
     "https://krishnaanaril.github.io/zettle/runtime.00c82fdebd384e867a25.js": "5204bc2b9032bc7a0650566082a440bb3db32762",
     "https://krishnaanaril.github.io/zettle/scripts.ee7fed27c36eaa5fa8a9.js": "f6f283629e7606428f6239a4b89bd4b42cc2f0ab",

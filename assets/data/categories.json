@@ -1,0 +1,19 @@
+[{
+    "name": "Entertainment", 
+    "subCategories": [
+        {"value": "Games", "viewValue": "Games"},
+        {"value": "Movies", "viewValue": "Movies"},
+        {"value": "Music", "viewValue": "Music"},
+        {"value": "Other", "viewValue": "Other"},
+        {"value": "Sports", "viewValue": "Sports"}
+    ]
+},
+{
+    "name": "Food & Drink", 
+    "subCategories": [
+        {"value": "DiningOut", "viewValue": "Dining Out"},
+        {"value": "Groceries", "viewValue": "Groceries"},
+        {"value": "Liquor", "viewValue": "Liquor"},
+        {"value": "Other", "viewValue": "Other"}        
+    ]
+}]
