@@ -4,7 +4,7 @@
     <form (ngSubmit)="onSubmit($event)" #userForm="ngForm">
       <div class="add-user-form">
       <mat-form-field class="example-full-width">
-        <input matInput aria-label="UserId" placeholder="UserId" name="userId" required [(ngModel)]="user.id" required appNoSpace
+        <input matInput aria-label="UserId" placeholder="UserId" name="userId" [(ngModel)]="user.id" required appNoSpace
           #id="ngModel">
         <mat-error *ngIf="!id.valid && !id.pristine">
           Id is required and without spaces.

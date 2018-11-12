@@ -1,5 +1,36 @@
 <app-header [home]="true" [friends]="true" [groups]="true"></app-header>
-
+<mat-list>
+    <h3 mat-subheader>Bills</h3>
+    <mat-list-item *ngFor="let bill of bills">
+        <img matListAvatar *ngIf="bill.billImage" [src]="bill.billImage" alt="no image">
+        <img matListAvatar *ngIf="!bill.billImage" src="assets/images/others/bill.png" alt="no image">
+        <h3 mat-line>{{bill.description}}</h3>
+        <p mat-line> Paid by: {{bill.lenter.userName}} </p>
+        <p mat-line> Members: {{bill.users.length}} </p>
+        <div class="bill-amount">
+            ₹{{bill.expense}}
+        </div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="billEditClick(bill.id)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="billDeleteClick(bill.id)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+            </button>
+        </mat-menu>
+        <!-- <button mat-icon-button (click)="billEditClick(bill.id)">
+            <mat-icon mat-list-icon aria-label="Example icon-button with a edit icon">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="billDeleteClick(bill.id)">
+            <mat-icon mat-list-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
+        </button> -->
+    </mat-list-item>
+</mat-list>
 <button mat-fab class="add-bill" (click)="addBillClick()">
     <mat-icon aria-label="Example icon-button with a heart icon">note_add</mat-icon>
 </button>

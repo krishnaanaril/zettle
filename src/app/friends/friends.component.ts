@@ -7,6 +7,7 @@ import { MatBottomSheet } from '@angular/material';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { LocalforageService } from '../shared/services/localforage.service';
 import { User } from '../shared/models/user';
+
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
@@ -29,6 +30,7 @@ export class FriendsComponent implements OnInit {
   reloadList() {
     this.localforage.getAllFriends().subscribe((res) => {
       this.friends = res;
+      console.log(res);
     }, (err) => {
       console.error(err);
     });
@@ -50,6 +52,7 @@ export class FriendsComponent implements OnInit {
   userDeleteClick(userId: string) {
     this.localforage.removeUser(userId).subscribe((res) => {
       console.log(`${userId} removed.`);
+      this.reloadList();
     }, (err) => {
       console.error(err);
     });

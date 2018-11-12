@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatBottomSheet } from '@angular/material';
 
 // Mine
-
+import { AddBillsComponent } from '../add-bills/add-bills.component';
+import { LocalforageService } from '../shared/services/localforage.service';
+import { Bill } from '../shared/models/bill';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +13,43 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  bills: Bill[];
 
-  constructor() { }
+  constructor(private localforage: LocalforageService
+    , private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
-    // this.pouchService.logDBInfo();
+    this.reloadList();
+  }
+
+  reloadList() {
+    this.localforage.getAllBills().subscribe((res) => {
+      this.bills = res;
+    }, (err) => {
+      console.error(err);
+    });
   }
 
   addBillClick() {
+    this.bottomSheet.open(AddBillsComponent).afterDismissed().subscribe(() => {
+      this.reloadList();
+    });
+  }
 
+  billEditClick(billId: string) {
+    console.log(billId);
+    this.bottomSheet.open(AddBillsComponent, { data: { billId: billId } }).afterDismissed().subscribe(() => {
+      this.reloadList();
+    });
+  }
+
+  billDeleteClick(billId: string) {
+    this.localforage.removeBill(billId).subscribe((res) => {
+      console.log(`${billId} removed.`);
+      this.reloadList();
+    }, (err) => {
+      console.error(err);
+    });
   }
 
 }

@@ -1,3 +1,57 @@
-<p>
-  add-bills works!
-</p>
+<form (ngSubmit)="onSubmit($event)" #billForm="ngForm">
+  <div class="example-container">
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="Members" [(ngModel)]="bill.users" name="members" #members="ngModel" multiple required (selectionChange)="userChange($event)">
+        <mat-option *ngFor="let user of allUsers" [value]="user.id">{{user.userName}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="!members.valid && !members.pristine">
+        Members is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-select placeholder="Category" [(ngModel)]="bill.cateogry" name="cateogry" #cateogry="ngModel" required>
+            <mat-option>-- None --</mat-option>
+            <mat-optgroup *ngFor="let category of categories" [label]="category.name">
+              <mat-option *ngFor="let subCategory of category.subCategories" [value]="subCategory.value">
+                {{subCategory.viewValue}}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+        <mat-error *ngIf="!cateogry.valid && !cateogry.pristine">
+          Category is required
+        </mat-error>
+      </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput aria-label="description" placeholder="description" name="description" [(ngModel)]="bill.description" required
+        #description="ngModel">
+      <mat-error *ngIf="!description.valid && !description.pristine">
+        Description is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="Paid by" [(ngModel)]="bill.lenter" name="lenter" #lenter="ngModel" required (openedChange)="openedChange($event)">
+        <mat-option *ngFor="let user of lenters" [value]="user">{{user.userName}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="!lenter.valid && !lenter.pristine">
+        Lenter is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput type="number" aria-label="description" placeholder="Expense" name="expense" [(ngModel)]="bill.expense" required
+        #expense="ngModel">
+      <mat-error *ngIf="!expense.valid && !expense.pristine">
+        Expense is required as number
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="bill.createdDate" name="createdDate" #createdDate="ngModel">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="zettle-btn-group">
+    <button type="submit" class="btn btn-dark" [disabled]="!billForm.form.valid && !billForm.form.valueChanges">Submit</button>
+    <button type="button" (click)="cancelClick($event)" class="btn btn-yellow">Cancel</button>
+  </div>
+</form>

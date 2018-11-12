@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
 // Mine
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +21,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { AddGroupComponent } from './add-group/add-group.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AbsoluteValuePipe } from './shared/pipes/absolute-value.pipe';
 import { AddBillsComponent } from './add-bills/add-bills.component'; // Commented for now as we are proceeding with bootstrap at the moment
 
 @NgModule({
@@ -35,18 +38,20 @@ import { AddBillsComponent } from './add-bills/add-bills.component'; // Commente
     SignupFormComponent,
     LoginFormComponent,
     AddGroupComponent,
-    AddBillsComponent
+    AddBillsComponent, 
+    AbsoluteValuePipe
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     MaterialModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddUserComponent]
+  entryComponents: [AddUserComponent, AddBillsComponent]
 })
 export class AppModule { }

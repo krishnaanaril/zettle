@@ -8,12 +8,28 @@
             <img matListAvatar *ngIf="!friend.displayImage" src="assets/images/others/user.png" alt="no image">
             <h4 mat-line>{{friend.userName}}</h4>
             <p mat-line> @{{friend.id}} </p>
-            <button mat-icon-button (click)="userEditClick(friend.id)">
+            <div class="bill-amount" [ngClass]="friend.owe > 0 ? 'owe' : 'lent'">
+                ₹{{friend.owe | number: '1.2-2' | abs}}
+            </div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="userEditClick(friend.id)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+                <button mat-menu-item  (click)="userDeleteClick(friend.id)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>            
+            </mat-menu>
+            <!-- <button mat-icon-button (click)="userEditClick(friend.id)">
                 <mat-icon mat-list-icon aria-label="Example icon-button with a edit icon">edit</mat-icon>
             </button>
             <button mat-icon-button (click)="userDeleteClick(friend.id)">
                 <mat-icon mat-list-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
-            </button>
+            </button> -->
         </mat-list-item>
     </mat-list>
 </div>
