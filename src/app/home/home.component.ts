@@ -23,11 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   reloadList() {
-    this.localforage.getAllBills().subscribe((res) => {
-      this.bills = res;
-    }, (err) => {
-      console.error(err);
-    });
+    this.bills = this.localforage.getAllBills();
   }
 
   addBillClick() {
@@ -44,12 +40,15 @@ export class HomeComponent implements OnInit {
   }
 
   billDeleteClick(billId: string) {
-    this.localforage.removeBill(billId).subscribe((res) => {
-      console.log(`${billId} removed.`);
-      this.reloadList();
-    }, (err) => {
-      console.error(err);
-    });
+    this.localforage.getBill(billId)
+      .then((res) => {
+        this.localforage.rollBackUserSplit(res.userSplits);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    this.localforage.removeBill(billId);
+    this.reloadList();
   }
 
 }

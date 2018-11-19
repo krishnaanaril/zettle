@@ -34,16 +34,16 @@ export class AddUserComponent implements OnInit {
     this.fileInputPlaceHolder = 'Choose an image';
     if (this.data && this.data.userId) {
       this.isEdit = true;
-      this.localforage.getUser(this.data.userId).pipe(map((res: any) => {
-        return res.value;
-      })).subscribe((res) => {
-        this.user = res;
-        this.previousUserValue = Object.assign({}, this.user);
-      }, (err) => {
-        throw err;
-      });
+      this.localforage.getUser(this.data.userId)
+        .then((res) => {
+          this.user = res;
+          this.previousUserValue = Object.assign({}, this.user);
+          console.log(this.user);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
-    console.log(this.user);
   }
 
   fileChanged(e) {
@@ -74,18 +74,12 @@ export class AddUserComponent implements OnInit {
     } else {
       message = 'User added.';
     }
-    this.localforage.addUser(this.user).subscribe((res) => {
-      const snackBarRef = this.snackBar.open(message, '', {
-        duration: 2000,
-        panelClass: ['snack-bar']
-      });
-    },
-      (err) => {
-        console.error(err);
-      },
-      () => {
-        this.bottomSheetRef.dismiss();
-        event.preventDefault();
-      });
+    this.localforage.addUser(this.user);
+    const snackBarRef = this.snackBar.open(message, '', {
+      duration: 2000,
+      panelClass: ['snack-bar']
+    });
+    this.bottomSheetRef.dismiss();
+    event.preventDefault();
   }
 }

@@ -30,7 +30,7 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-select placeholder="Paid by" [(ngModel)]="bill.lenter" name="lenter" #lenter="ngModel" required (openedChange)="openedChange($event)">
-        <mat-option *ngFor="let user of lenters" [value]="user">{{user.userName}}</mat-option>
+        <mat-option *ngFor="let user of lenters" [value]="user.id">{{user.userName}}</mat-option>
       </mat-select>
       <mat-error *ngIf="!lenter.valid && !lenter.pristine">
         Lenter is required

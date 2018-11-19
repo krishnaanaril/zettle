@@ -1,5 +1,6 @@
 export class UserSplit {
     public userId: string; // foreign key
+    public userName: string;
     public lent: number;
     public share: number;
     public owe: number;

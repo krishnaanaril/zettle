@@ -9,12 +9,16 @@
             <h4 mat-line>{{friend.userName}}</h4>
             <p mat-line> @{{friend.id}} </p>
             <div class="bill-amount" [ngClass]="friend.owe > 0 ? 'owe' : 'lent'">
-                ₹{{friend.owe | number: '1.2-2' | abs}}
+                ₹{{friend.owe | abs | number: '1.2-2' }}
             </div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="userSettleClick(friend.id)">
+                            <mat-icon>payment</mat-icon>
+                            <span>Settle Up</span>
+                        </button>
                 <button mat-menu-item (click)="userEditClick(friend.id)">
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>

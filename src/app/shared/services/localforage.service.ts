@@ -5,8 +5,7 @@ import { Observable, of, from } from 'rxjs';
 // Mine
 import { User } from '../models/user';
 import { Bill } from '../models/bill';
-import { count } from 'rxjs/operators';
-
+import { UserSplit } from '../models/user-split';
 
 @Injectable({
   providedIn: 'root'
@@ -44,130 +43,105 @@ export class LocalforageService {
     });
   }
 
-  addUser(user: User): Observable<boolean> {
-    return from(this.friendsStore.setItem(user.id, user).then(() => {
+  addUser(user: User): void {
+    this.friendsStore.setItem(user.id, user).then(() => {
       console.log(`${user.userName} added to local storage.`);
-      return of(true);
     }).catch((err) => {
       throw err;
-    }));
+    });
   }
 
-  getUser(userId: string): Observable<User> {
-    return from(this.friendsStore.getItem(userId).then((res) => {
-      return of(res);
-    }).catch((err) => {
+  getUser(userId: string): Promise<User> {
+    return this.friendsStore.getItem(userId);
+  }
+
+  removeUser(userId: string): void {
+    this.friendsStore.removeItem(userId).catch((err) => {
       throw err;
-    }));
+    });
   }
 
-  removeUser(userId: string): Observable<boolean> {
-    return from(this.friendsStore.removeItem(userId).then(() => {
-      return of(true);
-    }).catch((err) => {
+  getBillCount(): Promise<number> {
+    return this.metaStore.getItem('billCount');
+  }
+
+  setBillCount(billCount: number): void {
+    this.metaStore.setItem('billCount', billCount).catch((err) => {
       throw err;
-    }));
+    });
   }
 
-  getBillCount(): Observable<number> {
-    return from(this.metaStore.getItem('billCount').then((res) => {
-      return of(res);
-    }).catch((err) => {
+  addBill(bill: Bill): void {
+    this.billsStore.setItem(bill.id, bill).catch((err) => {
       throw err;
-    }));
+    });
   }
 
-  setBillCount(billCount: number): Observable<boolean> {
-    return from(this.metaStore.setItem('billCount', billCount).then(() => {
-      console.log(`Bill count added to local storage.`);
-      return of(true);
-    }).catch((err) => {
-      throw err;
-    }));
+  getBill(billId: string): Promise<Bill> {
+    return this.billsStore.getItem(billId);
   }
 
-  addBill(bill: Bill): Observable<boolean> {
-    return from(this.billsStore.setItem(bill.id, bill).then(() => {
-      console.log(`${bill.description} added to local storage.`);
-      return of(true);
-    }).catch((err) => {
-      throw err;
-    }));
-  }
-
-  getBill(billId: string): Observable<Bill> {
-    return from(this.billsStore.getItem(billId).then((res) => {
-      return of(res);
-    }).catch((err) => {
-      throw err;
-    }));
-  }
-
-  rollBackUserWithBill(bill: Bill): Observable<boolean> {
-    const share = bill.expense / bill.users.length;
-    bill.users.forEach((user) => {
-      this.friendsStore.getItem(user).then((res: User) => {
-        if (res.id === bill.lenter.id) {
-          res.lent -= bill.expense;
-        }
-        res.share -= share;
-        res.owe = res.share - res.lent;
-        this.friendsStore.setItem(user, res);
+  
+  /// Rollbacking old split
+  rollBackUserSplit(splits: Array<UserSplit>): void {
+    console.log(`in rollback user split: ${splits.length}`);
+    splits.forEach((split) => {
+      console.log(`rollback ids: ${split.userId}`);
+      this.friendsStore.getItem(split.userId).then((res: User) => {
+        res.lent -= split.lent;
+        res.owe -= split.owe;
+        res.share = res.share - res.lent;
+        this.friendsStore.setItem(res.id, res);
       }).catch((err) => {
         throw err;
       });
     });
-    return of(true);
   }
 
-  updateUserWithBill(bill: Bill): Observable<boolean> {
-    const share = bill.expense / bill.users.length;
-    bill.users.forEach((user) => {
-      this.friendsStore.getItem(user).then((res: User) => {
-        if (res.id === bill.lenter.id) {
-          res.lent += bill.expense;
-        }
-        res.share += share;
-        res.owe = res.share - res.lent;
-        this.friendsStore.setItem(user, res);
+  udpateUserSplit(splits: Array<UserSplit>): void {
+    console.log(`in update user split: ${splits.length}`);
+    splits.forEach((split) => {
+      console.log(`update ids: ${split.userId}`);
+      this.friendsStore.getItem(split.userId).then((res: User) => {
+        res.lent += split.lent;
+        res.owe += split.owe;
+        res.share = res.share - res.lent;
+        this.friendsStore.setItem(res.id, res);
       }).catch((err) => {
         throw err;
       });
     });
-    return of(true);
   }
 
-  removeBill(billId: string): Observable<boolean> {
-    return from(this.billsStore.removeItem(billId).then(() => {
-      return of(true);
-    }).catch((err) => {
+  removeBill(billId: string): void {
+    this.billsStore.removeItem(billId).catch((err) => {
       throw err;
-    }));
+    });
   }
 
-  getAllFriends(): Observable<User[]> {
+  getAllFriends(): Promise<User[]> {
     let users: Array<User>;
     users = [];
-    this.friendsStore.iterate((value, key, iterationNumber) => {
+    return this.friendsStore.iterate((value, key, iterationNumber) => {
       users.push(value);
     }).then(() => {
       console.log('Iteration has completed fr');
+      users.sort((n1, n2) => {
+        if (n1 > n2) {
+          return 1;
+        }
+        if (n1 < n2) {
+          return -1;
+        }
+        return 0;
+      });
+      return users;
     }).catch((err) => {
       console.error(err);
     });
-    users.sort((n1, n2) => {
-      if (n1 > n2) {
-        return 1;
-      }
-      if (n1 < n2) {
-        return -1;
-      }
-      return 0;
-    });
-    return of(users);
   }
 
-  getAllBills(): Observable<Bill[]> {
+  getAllBills(): Bill[] {
     let bills: Array<Bill>;
     bills = [];
     this.billsStore.iterate((value, key, iterationNumber) => {
@@ -186,6 +160,6 @@ export class LocalforageService {
       }
       return 0;
     });
-    return of(bills);
+    return bills;
   }
 }

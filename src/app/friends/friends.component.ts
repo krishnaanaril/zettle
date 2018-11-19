@@ -28,12 +28,13 @@ export class FriendsComponent implements OnInit {
   }
 
   reloadList() {
-    this.localforage.getAllFriends().subscribe((res) => {
-      this.friends = res;
-      console.log(res);
-    }, (err) => {
-      console.error(err);
-    });
+    this.localforage.getAllFriends()
+      .then((res) => {
+        this.friends = res;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   addUserClick() {
@@ -49,12 +50,24 @@ export class FriendsComponent implements OnInit {
     });
   }
 
+  userSettleClick(userId: string) {
+    this.localforage.getUser(userId)
+      .then((res) => {
+        res.owe = 0;
+        res.lent = 0;
+        res.share = 0;
+        this.localforage.addUser(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        this.reloadList();
+      });
+  }
+
   userDeleteClick(userId: string) {
-    this.localforage.removeUser(userId).subscribe((res) => {
-      console.log(`${userId} removed.`);
-      this.reloadList();
-    }, (err) => {
-      console.error(err);
-    });
+    this.localforage.removeUser(userId);
+    this.reloadList();
   }
 }

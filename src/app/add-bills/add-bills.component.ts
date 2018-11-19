@@ -10,6 +10,7 @@ import { DataService } from '../shared/services/data.service';
 import { Bill } from '../shared/models/bill';
 import { User } from '../shared/models/user';
 import { debug } from 'util';
+import { UserSplit } from '../shared/models/user-split';
 
 @Component({
   selector: 'app-add-bills',
@@ -41,44 +42,32 @@ export class AddBillsComponent implements OnInit {
     }, (err) => {
       console.log(err);
     });
-    this.localforageService.getAllFriends().subscribe((result) => {
-      this.allUsers = result;
-      console.log(result);
-      console.log(this.allUsers);
-      if (this.data && this.data.billId) {
-        this.localforageService.getBill(this.data.billId).subscribe((res: any) => {
-          this.bill = res.value;
-          this.previousBill = Object.assign({}, this.bill);
-          this.lenters = this.allUsers.filter((user) => {
-            return this.bill.users.findIndex(mem => user.id === mem) > -1;
-          });
-          this.bill = res.value;
-          console.log(this.lenters);
-        }, (err) => {
-          console.error(err);
-        });
-      }
-    }, (err) => {
-      console.error(err);
-    });
-    // const categories$ = this.dataService.getCategories();
-    // const allUsers$ = this.localforageService.getAllFriends();
-    // forkJoin(categories$, allUsers$).subscribe((result) => {
-    //   this.categories = <Category[]>result[0];
-    //   this.allUsers = result[1];
-    //   console.log(`all users: ${result[1].length}`);
-    //   if (this.data && this.data.billId) {
-    //     this.isEdit = true;
-    //     this.localforageService.getBill(this.data.billId).subscribe((res: any) => {
-    //       this.bill = res.value;
-    //       this.previousBill = Object.assign({}, this.bill);
-    //     }, (err) => {
-    //       console.error(err);
-    //     });
-    //   }
-    // }, (err) => {
-    //   console.error(err);
-    // });
+    this.localforageService.getAllFriends()
+      .then((res) => {
+        this.allUsers = res;
+        if (this.data && this.data.billId) {
+          this.isEdit = true;
+          this.localforageService.getBill(this.data.billId)
+            .then((result) => {
+              this.lenters = this.allUsers.filter((user) => {
+                return result.users.findIndex(mem => user.id === mem) > -1;
+              });
+              this.bill = result;
+              this.previousBill = Object.assign({}, this.bill);
+              console.log(this.bill);
+              console.log(this.bill.lenter);
+              console.log(this.allUsers.length);
+              console.log(this.lenters);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
   }
 
   openedChange(event) {
@@ -99,65 +88,83 @@ export class AddBillsComponent implements OnInit {
     event.preventDefault();
   }
 
-  rollback() {
-    const share = this.previousBill.expense / this.previousBill.users.length;
-    this.bill.users.forEach((userId) => {
-      this.localforageService.getUser(userId).subscribe((user: any) => {
-        if (user.id === this.bill.lenter.id) {
-          user.lent -= this.bill.expense;
-        }
-        user.share -= share;
-        user.owe = user.share - user.lent;
-        this.localforageService.addUser(user).subscribe((res) => {
-          console.log(`${user.id} updated`);
-        }, (err) => {
-          console.log(err);
-        });
-      }, (err) => {
-        console.error(err);
-      });
+  getUserSplit(bill: Bill): any {
+    const userSplits: Array<UserSplit> = [];
+    const share = bill.expense / bill.users.length;
+    const refs = [];
+    bill.users.forEach((user) => {
+      console.log(`Each user:${user}`);
+      const ref = this.localforageService.getUser(user);
+      // .then((res: User) => {
+      //   const split: UserSplit = new UserSplit(user);
+      //   split.userName = res.userName;
+      //   if (split.userId === bill.lenter) {
+      //     split.lent += bill.expense;
+      //   }
+      //   split.share += share;
+      //   split.owe = split.share - split.lent;
+      //   userSplits.push(split);
+      // });
+      refs.push(ref);
     });
+    return Promise.all(refs);
   }
 
   onSubmit(event: MouseEvent) {
     if (this.bill.createdDate === null) {
       this.bill.createdDate = new Date();
     }
+    // Rollback previous split on edit
     if (this.isEdit) {
-      this.localforageService.rollBackUserWithBill(this.bill).subscribe((res) => {
-        this.localforageService.updateUserWithBill(this.bill);
-      });
-    } else {
-      this.localforageService.updateUserWithBill(this.bill);
+      this.localforageService.rollBackUserSplit(this.bill.userSplits);
     }
-
-    this.localforageService.getBillCount().pipe(
-      mergeMap((res: any) => {
-        let billCount: number;
-        if (!res.value) {
-          billCount = 1;
-        } else {
-          billCount = res.value;
+    // this.bill.userSplits = this.getUserSplit(this.bill);
+    this.bill.userSplits = [];
+    const share = this.bill.expense / this.bill.users.length;
+    this.getUserSplit(this.bill).then((results) => {
+      results.forEach((user: User) => {
+        const split: UserSplit = new UserSplit(user.id);
+        split.userId = user.id;
+        split.userName = user.userName;
+        if (split.userId === this.bill.lenter) {
+          split.lent += this.bill.expense;
         }
-        this.localforageService.setBillCount(billCount + 1).subscribe(() => { }, (err) => { });
-        return of(billCount);
-      })
-    ).subscribe((billCount: number) => {
-      this.bill.id = `Bill${billCount}`;
-      this.localforageService.addBill(this.bill).subscribe((res) => {
-        const snackBarRef = this.snackBar.open('Bill added.', '', {
+        split.share += share;
+        split.owe = split.share - split.lent;
+        this.bill.userSplits.push(split);
+      });
+      console.log(this.bill.userSplits);
+      this.localforageService.udpateUserSplit(this.bill.userSplits);
+      let billCount: number;
+      if (this.isEdit) {
+        this.localforageService.addBill(this.bill);
+        const snackBarRef = this.snackBar.open('Bill updated.', '', {
           duration: 2000,
           panelClass: ['snack-bar']
         });
-      }, (err) => {
-        throw err;
-      });
-    }, (err) => {
-      console.error(err);
-    }, () => {
-      this.bottomSheetRef.dismiss();
-      event.preventDefault();
+      } else {
+        this.localforageService.getBillCount()
+          .then((res) => {
+            billCount = res;
+            if (!billCount) {
+              billCount = 1;
+            }
+            console.log(`Bill count : ${billCount}`);
+            this.localforageService.setBillCount(billCount + 1);
+            this.bill.id = `Bill${billCount}`;
+            this.localforageService.addBill(this.bill);
+            const snackBarRef = this.snackBar.open('Bill added.', '', {
+              duration: 2000,
+              panelClass: ['snack-bar']
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
     });
+    this.bottomSheetRef.dismiss();
+    event.preventDefault();
   }
 
 }
